@@ -19,6 +19,31 @@ app.post('/matricula', async (req, resp) => {
     try {
         let {nome, chamada, curso, turma} = req.body;
 
+        let a = await db.tb_matricula.findOne({ where: { nm_aluno: req.body.nome, nr_chamada: req.body.chamada, nm_turma: req.body.turma } });
+        if (a != null)
+            return resp.send({ erro: 'Aluno já existe!' });
+
+
+        if(!nome || nome == '') {
+            return resp.send({erro: 'Campo nome é obrigatório'})
+        }
+
+        if(!chamada || chamada == '') {
+            return resp.send({erro: 'Campo chamada é obrigatório'})
+        }
+
+        if(!curso || curso == '') {
+            return resp.send({erro: 'Campo curso é obrigatório'})
+        }
+
+        if(!turma || turma == '') {
+            return resp.send({erro: 'Campo turma é obrigatório'})
+        }
+
+        if(chamada <= 0) {
+            return resp.send({erro: 'Número de chamada inválido'})
+        }
+
         let r = await db.tb_matricula.create({
             nm_aluno: nome,
             nr_chamada: chamada,
