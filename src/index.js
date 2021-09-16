@@ -23,15 +23,6 @@ app.post('/matricula', async (req, resp) => {
         if (a != null)
             return resp.send({ erro: 'Aluno já existe!' });
 
-        if(nome.length < 3)
-            return resp.send({erro: "Não é possivel inserir um nome com menos de 3 caracteres"});
-
-        if(curso.length < 3)
-            return resp.send({erro: "Não é possivel inserir um curso com menos de 3 caracteres"});
-
-        if(turma.length < 3)
-            return resp.send({erro: "Não é possivel inserir uma turma com menos de 3 caracteres"});
-
         if(!nome || nome == '') {
             return resp.send({erro: 'Campo nome é obrigatório'})
         }
@@ -47,6 +38,15 @@ app.post('/matricula', async (req, resp) => {
         if(!turma || turma == '') {
             return resp.send({erro: 'Campo turma é obrigatório'})
         }
+
+        if(nome.length < 3)
+            return resp.send({erro: "Não é possivel inserir um nome com menos de 3 caracteres"});
+
+         if(curso.length < 3)
+             return resp.send({erro: "Não é possivel inserir um curso com menos de 3 caracteres"});
+
+         if(turma.length < 3)
+             return resp.send({erro: "Não é possivel inserir uma turma com menos de 3 caracteres"});
 
         if(chamada <= 0) {
             return resp.send({erro: 'Número de chamada inválido'})
