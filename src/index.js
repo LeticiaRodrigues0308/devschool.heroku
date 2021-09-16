@@ -70,6 +70,39 @@ app.put('/matricula/:id', async (req, resp) => {
         let {id} = req.params;
         // extraindo o id dentro de req.params
 
+        let a = await db.tb_matricula.findOne({ where: { nm_aluno: req.body.nome, nr_chamada: req.body.chamada, nm_turma: req.body.turma } });
+        if (a != null)
+            return resp.send({ erro: 'Aluno já existe!' });
+
+        if(!nome || nome == '') {
+            return resp.send({erro: 'Campo nome é obrigatório'})
+        }
+
+        if(!chamada || chamada == '') {
+            return resp.send({erro: 'Campo chamada é obrigatório'})
+        }
+
+        if(!curso || curso == '') {
+            return resp.send({erro: 'Campo curso é obrigatório'})
+        }
+
+        if(!turma || turma == '') {
+            return resp.send({erro: 'Campo turma é obrigatório'})
+        }
+
+        if(nome.length < 3)
+            return resp.send({erro: "Não é possivel inserir um nome com menos de 3 caracteres"});
+
+         if(curso.length < 3)
+             return resp.send({erro: "Não é possivel inserir um curso com menos de 3 caracteres"});
+
+         if(turma.length < 3)
+             return resp.send({erro: "Não é possivel inserir uma turma com menos de 3 caracteres"});
+
+        if(chamada <= 0) {
+            return resp.send({erro: 'Número de chamada inválido'})
+        }
+
         let r = await db.tb_matricula.update(
             {
                 nm_aluno: nome,
