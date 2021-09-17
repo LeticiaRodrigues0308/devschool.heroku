@@ -23,19 +23,19 @@ app.post('/matricula', async (req, resp) => {
         if (a != null)
             return resp.send({ erro: 'Aluno já existe!' });
 
-        if(!nome || nome == '') {
+        if(nome == '') {
             return resp.send({erro: 'Campo nome é obrigatório'})
         }
 
-        if(!chamada || chamada == '') {
+        if(chamada == '') {
             return resp.send({erro: 'Campo chamada é obrigatório'})
         }
 
-        if(!curso || curso == '') {
+        if(curso == '') {
             return resp.send({erro: 'Campo curso é obrigatório'})
         }
 
-        if(!turma || turma == '') {
+        if(turma == '') {
             return resp.send({erro: 'Campo turma é obrigatório'})
         }
 
